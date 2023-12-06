@@ -16,10 +16,11 @@ public class InputController : MonoBehaviour
     private Camera mainCamera;
 
     private SphericalCoordinate sphericalCoordinate;
-    [SerializeField] private Transform cubeTransform;
+    [SerializeField] private Transform cubeGroupTransform;
 
     private void Start()
     {
+
         mainCamera = Camera.main;
 
         InputStartEvent += OnInputStart;
@@ -44,7 +45,7 @@ public class InputController : MonoBehaviour
 
     private void LateUpdate()
     {
-        transform.rotation = Quaternion.LookRotation((cubeTransform.position - transform.position).normalized);
+        transform.rotation = Quaternion.LookRotation((cubeGroupTransform.position - transform.position).normalized);
     }
 
     private void OnInputStart()
