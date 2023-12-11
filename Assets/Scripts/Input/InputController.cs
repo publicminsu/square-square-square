@@ -20,7 +20,6 @@ public class InputController : MonoBehaviour
 
     private void Start()
     {
-
         mainCamera = Camera.main;
 
         InputStartEvent += OnInputStart;
@@ -28,24 +27,25 @@ public class InputController : MonoBehaviour
         InputEndEvent += OnInputEnd;
 
         sphericalCoordinate = new(10, -90, 90);
-        transform.position = sphericalCoordinate.ToCartesianCoordinate();
+        transform.position = sphericalCoordinate.ToCartesianCoordinate() + Vector3.one * 2.5f;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (prevUpdateMovePosition == prevMovePosition)
         {
             return;
         }
         sphericalCoordinate.AddDirectionDeg(nextDirection);
-        transform.position = sphericalCoordinate.ToCartesianCoordinate();
+        transform.position = sphericalCoordinate.ToCartesianCoordinate() + Vector3.one * 2.5f;
 
         prevUpdateMovePosition = prevMovePosition;
     }
 
     private void LateUpdate()
     {
-        transform.rotation = Quaternion.LookRotation((cubeGroupTransform.position - transform.position).normalized);
+        Quaternion lookQuaternion = Quaternion.LookRotation(((cubeGroupTransform.position + Vector3.one * 2.5f) - transform.position).normalized);
+        transform.rotation = lookQuaternion;
     }
 
     private void OnInputStart()
