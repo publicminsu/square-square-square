@@ -13,38 +13,38 @@ public class InputController : MonoBehaviour
     private bool isPress = false;//누르고 있는가?
     private bool isClick;
 
-    private Camera mainCamera;
-
     private SphericalCoordinate sphericalCoordinate;
     [SerializeField] private Transform cubeGroupTransform;
 
     private void Start()
     {
-        mainCamera = Camera.main;
-
         InputStartEvent += OnInputStart;
         InputMoveEvent += OnInputMove;
         InputEndEvent += OnInputEnd;
 
+        //초기 위치 설정
         sphericalCoordinate = new(10, -90, 90);
-        transform.position = sphericalCoordinate.ToCartesianCoordinate() + Vector3.one * 2.5f;
+        transform.position = sphericalCoordinate.ToCartesianCoordinate();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        if (prevUpdateMovePosition == prevMovePosition)
+        if (prevUpdateMovePosition == prevMovePosition)//마우스를 계속 움직이지 않는 경우
         {
             return;
         }
+
+        //다음 방향을 더해준 뒤 구면 좌표계에서의 좌표를 구하여 대입함
         sphericalCoordinate.AddDirectionDeg(nextDirection);
-        transform.position = sphericalCoordinate.ToCartesianCoordinate() + Vector3.one * 2.5f;
+        transform.position = sphericalCoordinate.ToCartesianCoordinate();
 
         prevUpdateMovePosition = prevMovePosition;
     }
 
     private void LateUpdate()
     {
-        Quaternion lookQuaternion = Quaternion.LookRotation(((cubeGroupTransform.position + Vector3.one * 2.5f) - transform.position).normalized);
+        //큐브 그룹의 중심을 바라보기
+        Quaternion lookQuaternion = Quaternion.LookRotation((cubeGroupTransform.position - transform.position).normalized);
         transform.rotation = lookQuaternion;
     }
 
@@ -55,11 +55,14 @@ public class InputController : MonoBehaviour
     }
     private void OnInputMove(Vector2 movePosition)
     {
-        if (isPress)
+        if (isPress)//마우스를 누르고 있는 경우
         {
-            isClick = false;
+            isClick = false;//마우스를 움직이며 누르고 있다는 것은 클릭이 아니란 뜻
+
+            //이전 마우스 위치에서 다음 마우스 위치의 방향을 구함
             Vector2 direction = movePosition - prevMovePosition;
             nextDirection = direction.normalized;
+
             prevMovePosition = movePosition;
         }
         else
@@ -71,7 +74,8 @@ public class InputController : MonoBehaviour
     {
         isPress = false;
         nextDirection = Vector2.zero;
-        if (isClick)
+
+        if (isClick)//만약 마우스를 누른 상태에서 움직이지 않았을 경우 = 클릭
         {
 
         }

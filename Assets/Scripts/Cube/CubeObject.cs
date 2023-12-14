@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class CubeObject : MonoBehaviour
@@ -10,25 +9,17 @@ public class CubeObject : MonoBehaviour
         cubeRigidbody = GetComponent<Rigidbody>();
     }
 
-    public IEnumerator Drop(int height, int totalHeight)
+    public void Shoot()
     {
-        float duration = (cubeRigidbody.transform.localPosition.y - height) / totalHeight;
-        float progress = 0f;
+        //구 위의 랜덤 좌표
+        Vector3 targetVector = Random.onUnitSphere;
 
-        WaitForFixedUpdate waitForFixedUpdate = new();
-        while (progress < duration)
-        {
-            progress += Time.deltaTime;
+        //목표 좌표 바라보기
+        Quaternion lookQuaternion = Quaternion.LookRotation(targetVector);
+        transform.rotation = lookQuaternion;
 
-            Vector3 localTargetPosition = new(
-                cubeRigidbody.transform.localPosition.x,
-                Mathf.Lerp(transform.position.y, height, progress / duration),
-                cubeRigidbody.transform.localPosition.z);
-            Vector3 worldTargetPosition = cubeRigidbody.transform.TransformDirection(localTargetPosition);
-
-            cubeRigidbody.MovePosition(worldTargetPosition);
-
-            yield return waitForFixedUpdate;
-        }
+        //이전의 속도 제거 후 목표 좌표로 힘 가하기
+        cubeRigidbody.velocity = Vector3.zero;
+        cubeRigidbody.AddForce(targetVector, ForceMode.VelocityChange);
     }
 }

@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class SphericalCoordinate
 {
-    private float minElevationRad, maxElevationRad;
-    private float rotationSpeed = 3f;
+    private const float minElevationRad = Mathf.Deg2Rad * 0.01f;
+    private const float maxElevationRad = Mathf.Deg2Rad * 179.99f;
+    private const float rotationSpeed = Mathf.Deg2Rad * 3f;
 
     public float Radius { get; set; }//길이
     public float AzimuthRad { get; set; }//방위각
@@ -14,13 +15,11 @@ public class SphericalCoordinate
         Radius = radius;
         AzimuthRad = Mathf.Deg2Rad * azimuthDeg;
         ElevationRad = Mathf.Deg2Rad * elevationDeg;
-
-        minElevationRad = Mathf.Deg2Rad * 0.01f;
-        maxElevationRad = Mathf.Deg2Rad * 179.99f;
     }
 
     public Vector3 ToCartesianCoordinate()
     {
+        //방위각, 양각, 길이를 통해 구면 좌표계의 좌표를 구함.
         return new(
             Radius * Mathf.Sin(ElevationRad) * Mathf.Cos(AzimuthRad),
             Radius * Mathf.Cos(ElevationRad),
@@ -29,10 +28,10 @@ public class SphericalCoordinate
 
     public void AddDirectionDeg(Vector2 directionDeg)
     {
-        float speed = Mathf.Deg2Rad * rotationSpeed;
-        AzimuthRad +=  directionDeg.x * speed;
-        ElevationRad +=  directionDeg.y * speed;
+        AzimuthRad += directionDeg.x * rotationSpeed;
+        ElevationRad += directionDeg.y * rotationSpeed;
 
+        //구의 맨 위 또는 맨 아래를 넘어가는 것 방지
         ElevationRad = Mathf.Clamp(ElevationRad, minElevationRad, maxElevationRad);
     }
 }

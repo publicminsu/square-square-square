@@ -11,23 +11,12 @@ public class CubeController : MonoBehaviour
     private void Awake()
     {
         cubeObjectPool = new ObjectPool<CubeObject>(CreateCubeObject, OnGetCube, OnReleaseCube, OnDestroyCube);
-        StartStage();
     }
-    private void StartStage()
+    private void Update()
     {
-        for (int length = 0; length < 5; ++length)
-        {
-            for (int width = 0; width < 5; ++width)
-            {
-                for (int height = 0; height < 5; ++height)
-                {
-                    CubeObject cubeObject = cubeObjectPool.Get();
-
-                    cubeObject.transform.localPosition = new(width, 20 + height, length);
-                    StartCoroutine(cubeObject.Drop(height, 20 + height));
-                }
-            }
-        }
+        //테스트를 위한 코드
+        CubeObject cubeObject=cubeObjectPool.Get();
+        cubeObject.Shoot();
     }
 
     #region Cube Object Pool

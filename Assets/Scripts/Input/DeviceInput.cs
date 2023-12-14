@@ -17,6 +17,7 @@ public class DeviceInput : MonoBehaviour
         position = callbackContext.ReadValue<Vector2>();
         inputController.InputMoveEvent(position);
     }
+
     public void OnPress(InputAction.CallbackContext callbackContext)
     {
         switch (callbackContext.phase)
