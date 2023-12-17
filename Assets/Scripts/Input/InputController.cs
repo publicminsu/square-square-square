@@ -34,8 +34,8 @@ public class InputController : MonoBehaviour
             return;
         }
 
-        //다음 방향을 더해준 뒤 구면 좌표계에서의 좌표를 구하여 대입함
-        sphericalCoordinate.AddDirectionDeg(nextDirection);
+        //다음 방향을 더해준 뒤 구면좌표계에서 3차원 데카르트 좌표를 구하여 대입함
+        sphericalCoordinate.AddDirectionDeg(nextDirection * Time.deltaTime);
         transform.position = sphericalCoordinate.ToCartesianCoordinate();
 
         prevUpdateMovePosition = prevMovePosition;
