@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: NightVisionMaterial
+  m_Name: GameBoyScreenMaterial
   m_Shader: {fileID: -6465566751694194690, guid: 0d91eb2389f506347bf7b6fb26609d5f,
     type: 3}
   m_Parent: {fileID: 0}
@@ -57,6 +57,8 @@ Material:
     m_Floats:
     - _Brightness: 1
     - _Brightness_Offset: 0.5
+    - _DitherMultiplier: 1
+    - _DitherSpread: 0.5
     - _Progress: 0
     - _QueueControl: 0
     - _QueueOffset: 0
