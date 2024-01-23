@@ -524,10 +524,10 @@
     "m_Guid": {
         "m_GuidSerialized": "0cc2c30c-67df-44da-b0f2-24b2583e763e"
     },
-    "m_Name": "GameBoyGradient",
+    "m_Name": "GameBoy Gradient",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "GameBoyGradient",
-    "m_DefaultReferenceName": "_GameBoyGradient",
+    "m_RefNameGeneratedByDisplayName": "GameBoy Gradient",
+    "m_DefaultReferenceName": "_GameBoy_Gradient",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": false,
     "m_UseCustomSlotLabel": false,
@@ -1314,7 +1314,7 @@
     "m_Type": "UnityEditor.ShaderGraph.GradientMaterialSlot",
     "m_ObjectId": "b695cfb6c01247538937b3597007da05",
     "m_Id": 0,
-    "m_DisplayName": "GameBoyGradient",
+    "m_DisplayName": "GameBoy Gradient",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",

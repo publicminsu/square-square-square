@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -12,11 +13,21 @@ public class CubeController : MonoBehaviour
     {
         cubeObjectPool = new ObjectPool<CubeObject>(CreateCubeObject, OnGetCube, OnReleaseCube, OnDestroyCube);
     }
-    private void Update()
+    private void Start()
     {
-        //테스트를 위한 코드
-        CubeObject cubeObject=cubeObjectPool.Get();
-        cubeObject.Shoot();
+        StartCoroutine(StartGame());
+    }
+
+    private IEnumerator StartGame()
+    {
+        WaitForSeconds waitForSeconds = new(1f);
+
+        while (true)
+        {
+            CubeObject cubeObject = cubeObjectPool.Get();
+            cubeObject.Shoot();
+            yield return waitForSeconds;
+        }
     }
 
     #region Cube Object Pool

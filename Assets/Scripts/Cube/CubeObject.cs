@@ -21,4 +21,10 @@ public class CubeObject : MonoBehaviour
         //목표 방향으로 속도 설정
         cubeRigidbody.velocity = targetVector;
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        transform.position= Vector3.zero;
+        Shoot();
+    }
 }
