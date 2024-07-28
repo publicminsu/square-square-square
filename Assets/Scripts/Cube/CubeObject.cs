@@ -11,14 +11,14 @@ public class CubeObject : MonoBehaviour
 
     public void Shoot()
     {
-        //±¸ À§ÀÇ ·£´ı ÁÂÇ¥
+        //êµ¬ ìœ„ì˜ ëœë¤ ì¢Œí‘œ
         Vector3 targetVector = Random.onUnitSphere;
 
-        //¸ñÇ¥ ¹æÇâ ¹Ù¶óº¸±â
+        //ëª©í‘œ ë°©í–¥ ë°”ë¼ë³´ê¸°
         Quaternion lookQuaternion = Quaternion.LookRotation(targetVector);
         transform.rotation = lookQuaternion;
 
-        //¸ñÇ¥ ¹æÇâÀ¸·Î ¼Óµµ ¼³Á¤
+        //ëª©í‘œ ë°©í–¥ìœ¼ë¡œ ì†ë„ ì„¤ì •
         cubeRigidbody.velocity = targetVector;
     }
 

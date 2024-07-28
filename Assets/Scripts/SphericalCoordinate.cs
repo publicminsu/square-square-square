@@ -6,9 +6,9 @@ public class SphericalCoordinate
     private const float maxElevationRad = Mathf.Deg2Rad * 179.99f;
     private const float rotationSpeed = Mathf.Deg2Rad * 60;
 
-    public float Radius { get; set; }//±æÀÌ
-    public float AzimuthRad { get; set; }//¹æÀ§°¢
-    public float ElevationRad { get; set; }//¾Ó°¢
+    public float Radius { get; set; }//ê¸¸ì´
+    public float AzimuthRad { get; set; }//ë°©ìœ„ê°
+    public float ElevationRad { get; set; }//ì–‘ê°
 
     public SphericalCoordinate(float radius, float azimuthDeg, float elevationDeg)
     {
@@ -19,7 +19,7 @@ public class SphericalCoordinate
 
     public Vector3 ToCartesianCoordinate()
     {
-        //¹æÀ§°¢, ¾ç°¢, ±æÀÌ(±¸¸éÁÂÇ¥°è)¸¦ ÅëÇØ 3Â÷¿ø µ¥Ä«¸£Æ® ÁÂÇ¥·Î º¯È¯
+        //ë°©ìœ„ê°, ì–‘ê°, ê¸¸ì´(êµ¬ë©´ì¢Œí‘œê³„)ë¥¼ í†µí•´ 3ì°¨ì› ë°ì¹´ë¥´íŠ¸ ì¢Œí‘œë¡œ ë³€í™˜
         return new(
             Radius * Mathf.Sin(ElevationRad) * Mathf.Cos(AzimuthRad),
             Radius * Mathf.Cos(ElevationRad),
@@ -32,7 +32,7 @@ public class SphericalCoordinate
         AzimuthRad += directionDeg.x;
         ElevationRad += directionDeg.y;
 
-        //±¸ÀÇ ¸Ç À§ ¶Ç´Â ¸Ç ¾Æ·¡¸¦ ³Ñ¾î°¡´Â °Í ¹æÁö
+        //êµ¬ì˜ ë§¨ ìœ„ ë˜ëŠ” ë§¨ ì•„ë˜ë¥¼ ë„˜ì–´ê°€ëŠ” ê²ƒ ë°©ì§€
         ElevationRad = Mathf.Clamp(ElevationRad, minElevationRad, maxElevationRad);
     }
 }

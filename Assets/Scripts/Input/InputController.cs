@@ -10,7 +10,7 @@ public class InputController : MonoBehaviour
     private Vector2 prevMovePosition, prevUpdateMovePosition;
     private Vector2 nextDirection = Vector2.zero;
 
-    private bool isPress = false;//´©¸£°í ÀÖ´Â°¡?
+    private bool isPress = false;//ëˆ„ë¥´ê³  ìˆëŠ”ê°€?
     private bool isClick;
 
     private SphericalCoordinate sphericalCoordinate;
@@ -22,19 +22,19 @@ public class InputController : MonoBehaviour
         InputMoveEvent += OnInputMove;
         InputEndEvent += OnInputEnd;
 
-        //ÃÊ±â À§Ä¡ ¼³Á¤
+        //ì´ˆê¸° ìœ„ì¹˜ ì„¤ì •
         sphericalCoordinate = new(10, -90, 90);
         transform.position = sphericalCoordinate.ToCartesianCoordinate();
     }
 
     private void Update()
     {
-        if (prevUpdateMovePosition == prevMovePosition)//¸¶¿ì½º¸¦ °è¼Ó ¿òÁ÷ÀÌÁö ¾Ê´Â °æ¿ì
+        if (prevUpdateMovePosition == prevMovePosition)//ë§ˆìš°ìŠ¤ë¥¼ ê³„ì† ì›€ì§ì´ì§€ ì•ŠëŠ” ê²½ìš°
         {
             return;
         }
 
-        //´ÙÀ½ ¹æÇâÀ» ´õÇØÁØ µÚ ±¸¸éÁÂÇ¥°è¿¡¼­ 3Â÷¿ø µ¥Ä«¸£Æ® ÁÂÇ¥¸¦ ±¸ÇÏ¿© ´ëÀÔÇÔ
+        //ë‹¤ìŒ ë°©í–¥ì„ ë”í•´ì¤€ ë’¤ êµ¬ë©´ì¢Œí‘œê³„ì—ì„œ 3ì°¨ì› ë°ì¹´ë¥´íŠ¸ ì¢Œí‘œë¥¼ êµ¬í•˜ì—¬ ëŒ€ì…í•¨
         sphericalCoordinate.AddDirectionDeg(nextDirection * Time.deltaTime);
         transform.position = sphericalCoordinate.ToCartesianCoordinate();
 
@@ -43,7 +43,7 @@ public class InputController : MonoBehaviour
 
     private void LateUpdate()
     {
-        //Å¥ºê ±×·ìÀÇ Áß½ÉÀ» ¹Ù¶óº¸±â
+        //íë¸Œ ê·¸ë£¹ì˜ ì¤‘ì‹¬ì„ ë°”ë¼ë³´ê¸°
         Quaternion lookQuaternion = Quaternion.LookRotation((cubeGroupTransform.position - transform.position).normalized);
         transform.rotation = lookQuaternion;
     }
@@ -55,11 +55,11 @@ public class InputController : MonoBehaviour
     }
     private void OnInputMove(Vector2 movePosition)
     {
-        if (isPress)//¸¶¿ì½º¸¦ ´©¸£°í ÀÖ´Â °æ¿ì
+        if (isPress)//ë§ˆìš°ìŠ¤ë¥¼ ëˆ„ë¥´ê³  ìˆëŠ” ê²½ìš°
         {
-            isClick = false;//¸¶¿ì½º¸¦ ¿òÁ÷ÀÌ¸ç ´©¸£°í ÀÖ´Ù´Â °ÍÀº Å¬¸¯ÀÌ ¾Æ´Ï¶õ ¶æ
+            isClick = false;//ë§ˆìš°ìŠ¤ë¥¼ ì›€ì§ì´ë©° ëˆ„ë¥´ê³  ìˆë‹¤ëŠ” ê²ƒì€ í´ë¦­ì´ ì•„ë‹ˆë€ ëœ»
 
-            //ÀÌÀü ¸¶¿ì½º À§Ä¡¿¡¼­ ´ÙÀ½ ¸¶¿ì½º À§Ä¡ÀÇ ¹æÇâÀ» ±¸ÇÔ
+            //ì´ì „ ë§ˆìš°ìŠ¤ ìœ„ì¹˜ì—ì„œ ë‹¤ìŒ ë§ˆìš°ìŠ¤ ìœ„ì¹˜ì˜ ë°©í–¥ì„ êµ¬í•¨
             Vector2 direction = movePosition - prevMovePosition;
             nextDirection = direction.normalized;
 
@@ -75,7 +75,7 @@ public class InputController : MonoBehaviour
         isPress = false;
         nextDirection = Vector2.zero;
 
-        if (isClick)//¸¸¾à ¸¶¿ì½º¸¦ ´©¸¥ »óÅÂ¿¡¼­ ¿òÁ÷ÀÌÁö ¾Ê¾ÒÀ» °æ¿ì = Å¬¸¯
+        if (isClick)//ë§Œì•½ ë§ˆìš°ìŠ¤ë¥¼ ëˆ„ë¥¸ ìƒíƒœì—ì„œ ì›€ì§ì´ì§€ ì•Šì•˜ì„ ê²½ìš° = í´ë¦­
         {
 
         }

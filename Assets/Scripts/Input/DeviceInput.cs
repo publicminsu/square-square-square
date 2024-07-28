@@ -22,11 +22,11 @@ public class DeviceInput : MonoBehaviour
     {
         switch (callbackContext.phase)
         {
-            case InputActionPhase.Performed://½ÃÀÛ
+            case InputActionPhase.Performed://ì‹œìž‘
                 inputController.InputStartEvent();
                 break;
 
-            case InputActionPhase.Canceled://ÁßÁö
+            case InputActionPhase.Canceled://ì¤‘ì§€
                 inputController.InputEndEvent();
                 break;
         }
