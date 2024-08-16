@@ -1,57 +1,84 @@
 using System.Collections;
+using Project.Data;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class CubeController : MonoBehaviour
+namespace Project.Cube
 {
-    private ObjectPool<CubeObject> cubeObjectPool;
-    [SerializeField] GameObject cubeObjectPrefab;
-
-    [SerializeField] private Transform cubeGroupTransform;
-
-    private void Awake()
+    public class CubeController : MonoBehaviour
     {
-        cubeObjectPool = new ObjectPool<CubeObject>(CreateCubeObject, OnGetCube, OnReleaseCube, OnDestroyCube);
-    }
-    private void Start()
-    {
-        StartCoroutine(StartGame());
-    }
+        private ObjectPool<CubeObject> cubeObjectPool;
 
-    private IEnumerator StartGame()
-    {
-        WaitForSeconds waitForSeconds = new(1f);
+        [SerializeField]
+        private GameObject cubeObjectPrefab;
 
-        while (true)
+        [SerializeField]
+        private Transform cubeGroupTransform;
+
+        [SerializeField]
+        private ScoreDataSO scoreData;
+        
+        [SerializeField]
+        private TimeDataSO timeData;
+
+        private void Awake()
         {
-            CubeObject cubeObject = cubeObjectPool.Get();
-            cubeObject.Shoot();
-            yield return waitForSeconds;
+            cubeObjectPool = new ObjectPool<CubeObject>(CreateCubeObject, OnGetCube, OnReleaseCube, OnDestroyCube);
         }
-    }
 
-    #region Cube Object Pool
-    private CubeObject CreateCubeObject()
-    {
-        GameObject cubeGameObject = Instantiate(cubeObjectPrefab, cubeGroupTransform);
+        private void Start()
+        {
+            StartCoroutine(StartGame());
+        }
 
-        CubeObject cubeObject = cubeGameObject.GetComponent<CubeObject>();
+        private IEnumerator StartGame()
+        {
+            scoreData.InitScore();
+            timeData.InitTime();
 
-        return cubeObject;
-    }
+            float currentTime = 0f;
 
-    private void OnGetCube(CubeObject cubeObject)
-    {
-        cubeObject.gameObject.SetActive(true);
-    }
+            while (true)
+            {
+                if (currentTime >= 1f)
+                {
+                    CubeObject cubeObject = cubeObjectPool.Get();
+                    cubeObject.Shoot();
+                    currentTime = 0f;
+                }
 
-    private void OnReleaseCube(CubeObject cubeObject)
-    {
-        cubeObject.gameObject.SetActive(false);
+                timeData.IncreaseTime();
+                currentTime += Time.deltaTime;
+                yield return null;
+            }
+        }
+
+        #region Cube Object Pool
+
+        private CubeObject CreateCubeObject()
+        {
+            GameObject cubeGameObject = Instantiate(cubeObjectPrefab, cubeGroupTransform);
+
+            CubeObject cubeObject = cubeGameObject.GetComponent<CubeObject>();
+
+            return cubeObject;
+        }
+
+        private void OnGetCube(CubeObject cubeObject)
+        {
+            cubeObject.gameObject.SetActive(true);
+        }
+
+        private void OnReleaseCube(CubeObject cubeObject)
+        {
+            cubeObject.gameObject.SetActive(false);
+        }
+
+        private void OnDestroyCube(CubeObject cubeObject)
+        {
+            Destroy(cubeObject);
+        }
+
+        #endregion
     }
-    private void OnDestroyCube(CubeObject cubeObject)
-    {
-        Destroy(cubeObject);
-    }
-    #endregion
 }

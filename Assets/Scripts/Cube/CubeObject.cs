@@ -1,30 +1,38 @@
+using Project.Data;
 using UnityEngine;
 
-public class CubeObject : MonoBehaviour
+namespace Project.Cube
 {
-    private Rigidbody cubeRigidbody;
-
-    private void Awake()
+    public class CubeObject : MonoBehaviour
     {
-        cubeRigidbody = GetComponent<Rigidbody>();
-    }
+        private Rigidbody cubeRigidbody;
 
-    public void Shoot()
-    {
-        //구 위의 랜덤 좌표
-        Vector3 targetVector = Random.onUnitSphere;
+        [SerializeField]
+        private ScoreDataSO scoreData;
 
-        //목표 방향 바라보기
-        Quaternion lookQuaternion = Quaternion.LookRotation(targetVector);
-        transform.rotation = lookQuaternion;
+        private void Awake()
+        {
+            cubeRigidbody = GetComponent<Rigidbody>();
+        }
 
-        //목표 방향으로 속도 설정
-        cubeRigidbody.velocity = targetVector;
-    }
+        public void Shoot()
+        {
+            //구 위의 랜덤 좌표
+            Vector3 targetVector = Random.onUnitSphere;
 
-    private void OnTriggerExit(Collider other)
-    {
-        transform.position= Vector3.zero;
-        Shoot();
+            //목표 방향 바라보기
+            Quaternion lookQuaternion = Quaternion.LookRotation(targetVector);
+            transform.rotation = lookQuaternion;
+
+            //목표 방향으로 속도 설정
+            cubeRigidbody.velocity = targetVector;
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            transform.position = Vector3.zero;
+            Shoot();
+            scoreData.IncreaseScore();
+        }
     }
 }
