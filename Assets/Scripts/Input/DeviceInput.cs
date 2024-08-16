@@ -5,19 +5,23 @@ namespace Project.Input
 {
     public class DeviceInput : MonoBehaviour
     {
-        private InputController inputController;
+        private InputController _inputController;
 
-        private Vector2 position;
+        private Vector2 _position;
+
+        #region Event Functions
 
         private void Awake()
         {
-            inputController = GetComponent<InputController>();
+            _inputController = GetComponent<InputController>();
         }
+
+        #endregion
 
         public void OnPosition(InputAction.CallbackContext callbackContext)
         {
-            position = callbackContext.ReadValue<Vector2>();
-            inputController.InputMoveEvent(position);
+            _position = callbackContext.ReadValue<Vector2>();
+            _inputController.InputMoved(_position);
         }
 
         public void OnPress(InputAction.CallbackContext callbackContext)
@@ -25,11 +29,11 @@ namespace Project.Input
             switch (callbackContext.phase)
             {
                 case InputActionPhase.Performed: //시작
-                    inputController.InputStartEvent();
+                    _inputController.InputStarted();
                     break;
 
                 case InputActionPhase.Canceled: //중지
-                    inputController.InputEndEvent();
+                    _inputController.InputEnded();
                     break;
             }
         }

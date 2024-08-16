@@ -6,83 +6,97 @@ namespace Project.Input
 {
     public class InputController : MonoBehaviour
     {
-        public Action InputStartEvent;
-        public Action<Vector2> InputMoveEvent;
-        public Action InputEndEvent;
-
-        private Vector2 prevMovePosition, prevUpdateMovePosition;
-        private Vector2 nextDirection = Vector2.zero;
-
-        private bool isPress; //누르고 있는가?
-        private bool isClick;
-
-        private SphericalCoordinate sphericalCoordinate;
+        #region Serialized Fields
 
         [SerializeField]
         private Transform cubeGroupTransform;
 
+        #endregion
+
+        private bool _isClick;
+        private bool _isPress; //누르고 있는가?
+        private Vector2 _nextDirection = Vector2.zero;
+
+        private Vector2 _prevMovePosition, _prevUpdateMovePosition;
+
+        private SphericalCoordinate _sphericalCoordinate;
+        public Action InputEnded;
+        public Action<Vector2> InputMoved;
+        public Action InputStarted;
+
+        #region Event Functions
+
         private void Start()
         {
-            InputStartEvent += OnInputStart;
-            InputMoveEvent += OnInputMove;
-            InputEndEvent += OnInputEnd;
-
             //초기 위치 설정
-            sphericalCoordinate = new SphericalCoordinate(10, -90, 90);
-            transform.position = sphericalCoordinate.ToCartesianCoordinate();
+            _sphericalCoordinate = new SphericalCoordinate(10, -90, 90);
+            transform.position = _sphericalCoordinate.ToCartesianCoordinate();
         }
 
         private void Update()
         {
-            if (prevUpdateMovePosition == prevMovePosition) //마우스를 계속 움직이지 않는 경우
+            if (_prevUpdateMovePosition == _prevMovePosition) //마우스를 계속 움직이지 않는 경우
             {
                 return;
             }
 
             //다음 방향을 더해준 뒤 구면좌표계에서 3차원 데카르트 좌표를 구하여 대입함
-            sphericalCoordinate.AddDirectionDeg(nextDirection * Time.deltaTime);
-            transform.position = sphericalCoordinate.ToCartesianCoordinate();
+            _sphericalCoordinate.AddDirectionDeg(_nextDirection * Time.deltaTime);
+            transform.position = _sphericalCoordinate.ToCartesianCoordinate();
 
-            prevUpdateMovePosition = prevMovePosition;
+            _prevUpdateMovePosition = _prevMovePosition;
         }
 
         private void LateUpdate()
         {
             //큐브 그룹의 중심을 바라보기
-            Quaternion lookQuaternion =
+            var lookQuaternion =
                 Quaternion.LookRotation((cubeGroupTransform.position - transform.position).normalized);
             transform.rotation = lookQuaternion;
         }
 
-        private void OnInputStart()
+        private void OnEnable()
         {
-            isPress = true;
-            isClick = true;
+            InputStarted += OnInputStarted;
+            InputMoved += OnInputMoved;
+            InputEnded += OnInputEnded;
         }
 
-        private void OnInputMove(Vector2 movePosition)
+        private void OnDisable()
         {
-            if (isPress) //마우스를 누르고 있는 경우
+            InputStarted -= OnInputStarted;
+            InputMoved -= OnInputMoved;
+            InputEnded -= OnInputEnded;
+        }
+
+        #endregion
+
+        private void OnInputStarted()
+        {
+            _isPress = true;
+            _isClick = true;
+        }
+
+        private void OnInputMoved(Vector2 movePosition)
+        {
+            if (_isPress) //마우스를 누르고 있는 경우
             {
-                isClick = false; //마우스를 움직이며 누르고 있다는 것은 클릭이 아니란 뜻
+                _isClick = false; //마우스를 움직이며 누르고 있다는 것은 클릭이 아니란 뜻
 
                 //이전 마우스 위치에서 다음 마우스 위치의 방향을 구함
-                Vector2 direction = movePosition - prevMovePosition;
-                nextDirection = direction.normalized;
+                var direction = movePosition - _prevMovePosition;
+                _nextDirection = direction.normalized;
 
-                prevMovePosition = movePosition;
-            }
-            else
-            {
+                _prevMovePosition = movePosition;
             }
         }
 
-        private void OnInputEnd()
+        private void OnInputEnded()
         {
-            isPress = false;
-            nextDirection = Vector2.zero;
+            _isPress = false;
+            _nextDirection = Vector2.zero;
 
-            if (isClick) //만약 마우스를 누른 상태에서 움직이지 않았을 경우 = 클릭
+            if (_isClick) //만약 마우스를 누른 상태에서 움직이지 않았을 경우 = 클릭
             {
             }
         }

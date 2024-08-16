@@ -17,7 +17,7 @@ namespace Project.Data
         /// <summary>
         /// 점수가 업데이트될 때 호출할 이벤트
         /// </summary>
-        public event Action<int> OnScoreUpdated;
+        public event Action<int> ScoreUpdated;
 
         /// <summary>
         /// 점수를 0으로 초기화
@@ -42,7 +42,7 @@ namespace Project.Data
         private void SetScore(int score)
         {
             _currentScore = score;
-            OnScoreUpdated?.Invoke(_currentScore);
+            ScoreUpdated?.Invoke(_currentScore);
         }
     }
 }

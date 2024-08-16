@@ -7,7 +7,7 @@ namespace Project.Cube
 {
     public class CubeController : MonoBehaviour
     {
-        private ObjectPool<CubeObject> cubeObjectPool;
+        private ObjectPool<CubeObject> _cubeObjectPool;
 
         [SerializeField]
         private GameObject cubeObjectPrefab;
@@ -23,7 +23,7 @@ namespace Project.Cube
 
         private void Awake()
         {
-            cubeObjectPool = new ObjectPool<CubeObject>(CreateCubeObject, OnGetCube, OnReleaseCube, OnDestroyCube);
+            _cubeObjectPool = new ObjectPool<CubeObject>(CreateCubeObject, OnGetCube, OnReleaseCube, OnDestroyCube);
         }
 
         private void Start()
@@ -42,7 +42,7 @@ namespace Project.Cube
             {
                 if (currentTime >= 1f)
                 {
-                    CubeObject cubeObject = cubeObjectPool.Get();
+                    CubeObject cubeObject = _cubeObjectPool.Get();
                     cubeObject.Shoot();
                     currentTime = 0f;
                 }

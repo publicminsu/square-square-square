@@ -26,14 +26,14 @@ namespace Project.UI
 
         private void OnEnable()
         {
-            scoreData.OnScoreUpdated += OnScoreUpdated;
-            timeData.OnTimeUpdated += OnTimeUpdated;
+            scoreData.ScoreUpdated += OnScoreUpdated;
+            timeData.TimeUpdated += OnTimeUpdated;
         }
 
         private void OnDisable()
         {
-            scoreData.OnScoreUpdated -= OnScoreUpdated;
-            timeData.OnTimeUpdated -= OnTimeUpdated;
+            scoreData.ScoreUpdated -= OnScoreUpdated;
+            timeData.TimeUpdated -= OnTimeUpdated;
         }
 
         #endregion

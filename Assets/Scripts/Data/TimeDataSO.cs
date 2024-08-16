@@ -17,7 +17,7 @@ namespace Project.Data
         /// <summary>
         /// 시간이 업데이트될 때 호출할 이벤트
         /// </summary>
-        public event Action<float> OnTimeUpdated;
+        public event Action<float> TimeUpdated;
         
         /// <summary>
         /// 시간을 0으로 초기화
@@ -42,7 +42,7 @@ namespace Project.Data
         private void SetTime(float time)
         {
             _currentTime = time;
-            OnTimeUpdated?.Invoke(_currentTime);
+            TimeUpdated?.Invoke(_currentTime);
         }
     }
 }
