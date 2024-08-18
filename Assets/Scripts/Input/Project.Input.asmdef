@@ -1,0 +1,17 @@
+{
+  "name": "Project.Input",
+  "rootNamespace": "",
+  "references": [
+    "GUID:c7e303e4cec44421926d23a06dbed1da",
+    "GUID:75469ad4d38634e559750d17036d5f7c"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}
