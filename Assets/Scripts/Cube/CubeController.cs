@@ -7,7 +7,7 @@ namespace Project.Cube
 {
     public class CubeController : MonoBehaviour
     {
-        private ObjectPool<CubeObject> _cubeObjectPool;
+        #region Serialized Fields
 
         [SerializeField]
         private GameObject cubeObjectPrefab;
@@ -17,9 +17,15 @@ namespace Project.Cube
 
         [SerializeField]
         private ScoreDataSO scoreData;
-        
+
         [SerializeField]
         private TimeDataSO timeData;
+
+        #endregion
+
+        private ObjectPool<CubeObject> _cubeObjectPool;
+
+        #region Event Functions
 
         private void Awake()
         {
@@ -28,21 +34,28 @@ namespace Project.Cube
 
         private void Start()
         {
-            StartCoroutine(StartGame());
+            StartGame();
         }
 
-        private IEnumerator StartGame()
+        #endregion
+
+        public void StartGame()
         {
             scoreData.InitScore();
             timeData.InitTime();
 
-            float currentTime = 0f;
+            StartCoroutine(UpdateGame());
+        }
+
+        private IEnumerator UpdateGame()
+        {
+            var currentTime = 0f;
 
             while (true)
             {
                 if (currentTime >= 1f)
                 {
-                    CubeObject cubeObject = _cubeObjectPool.Get();
+                    var cubeObject = _cubeObjectPool.Get();
                     cubeObject.Shoot();
                     currentTime = 0f;
                 }
@@ -57,9 +70,9 @@ namespace Project.Cube
 
         private CubeObject CreateCubeObject()
         {
-            GameObject cubeGameObject = Instantiate(cubeObjectPrefab, cubeGroupTransform);
+            var cubeGameObject = Instantiate(cubeObjectPrefab, cubeGroupTransform);
 
-            CubeObject cubeObject = cubeGameObject.GetComponent<CubeObject>();
+            var cubeObject = cubeGameObject.GetComponent<CubeObject>();
 
             return cubeObject;
         }
