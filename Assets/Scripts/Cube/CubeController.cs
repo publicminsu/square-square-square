@@ -1,7 +1,6 @@
 using System.Collections;
 using Project.Data;
 using UnityEngine;
-using UnityEngine.Pool;
 
 namespace Project.Cube
 {
@@ -23,13 +22,13 @@ namespace Project.Cube
 
         #endregion
 
-        private ObjectPool<CubeObject> _cubeObjectPool;
+        private CubeObjectPool _cubeObjectPool;
 
         #region Event Functions
 
         private void Awake()
         {
-            _cubeObjectPool = new ObjectPool<CubeObject>(CreateCubeObject, OnGetCube, OnReleaseCube, OnDestroyCube);
+            _cubeObjectPool = new CubeObjectPool(cubeObjectPrefab, cubeGroupTransform);
         }
 
         private void Start()
@@ -55,7 +54,7 @@ namespace Project.Cube
             {
                 if (currentTime >= 1f)
                 {
-                    var cubeObject = _cubeObjectPool.Get();
+                    var cubeObject = _cubeObjectPool.Pool.Get();
                     cubeObject.Shoot();
                     currentTime = 0f;
                 }
@@ -65,33 +64,5 @@ namespace Project.Cube
                 yield return null;
             }
         }
-
-        #region Cube Object Pool
-
-        private CubeObject CreateCubeObject()
-        {
-            var cubeGameObject = Instantiate(cubeObjectPrefab, cubeGroupTransform);
-
-            var cubeObject = cubeGameObject.GetComponent<CubeObject>();
-
-            return cubeObject;
-        }
-
-        private void OnGetCube(CubeObject cubeObject)
-        {
-            cubeObject.gameObject.SetActive(true);
-        }
-
-        private void OnReleaseCube(CubeObject cubeObject)
-        {
-            cubeObject.gameObject.SetActive(false);
-        }
-
-        private void OnDestroyCube(CubeObject cubeObject)
-        {
-            Destroy(cubeObject);
-        }
-
-        #endregion
     }
 }
