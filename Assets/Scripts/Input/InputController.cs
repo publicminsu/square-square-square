@@ -9,6 +9,9 @@ namespace Project.Input
         #region Serialized Fields
 
         [SerializeField]
+        private Transform playerTransform;
+
+        [SerializeField]
         private Transform cubeGroupTransform;
 
         #endregion
@@ -30,7 +33,7 @@ namespace Project.Input
         {
             //초기 위치 설정
             _sphericalCoordinate = new SphericalCoordinate(10, -90, 90);
-            transform.position = _sphericalCoordinate.ToCartesianCoordinate();
+            playerTransform.position = _sphericalCoordinate.ToCartesianCoordinate();
         }
 
         private void Update()
@@ -42,7 +45,7 @@ namespace Project.Input
 
             //다음 방향을 더해준 뒤 구면좌표계에서 3차원 데카르트 좌표를 구하여 대입함
             _sphericalCoordinate.AddDirectionDeg(_nextDirection * Time.deltaTime);
-            transform.position = _sphericalCoordinate.ToCartesianCoordinate();
+            playerTransform.position = _sphericalCoordinate.ToCartesianCoordinate();
 
             _prevUpdateMovePosition = _prevMovePosition;
         }
@@ -51,8 +54,8 @@ namespace Project.Input
         {
             //큐브 그룹의 중심을 바라보기
             var lookQuaternion =
-                Quaternion.LookRotation((cubeGroupTransform.position - transform.position).normalized);
-            transform.rotation = lookQuaternion;
+                Quaternion.LookRotation((cubeGroupTransform.position - playerTransform.position).normalized);
+            playerTransform.rotation = lookQuaternion;
         }
 
         private void OnEnable()
