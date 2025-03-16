@@ -5,3 +5,7 @@
 # 개발일지
 최대한 열심히 쓰고 있으니 보고 피드백 주시면 감사합니다. <br/>
 https://velog.io/@publicminsu/series/square-square-square
+# TODO
+- MVP 패턴으로 UI 변경 및 추가 제작
+- 타이틀 화면 제작
+- 마우스 입력 능력 제작
