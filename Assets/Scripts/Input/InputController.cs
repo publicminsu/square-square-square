@@ -1,4 +1,3 @@
-using System;
 using Project.Utility;
 using UnityEngine;
 
@@ -7,6 +6,9 @@ namespace Project.Input
     public class InputController : MonoBehaviour
     {
         #region Serialized Fields
+
+        [SerializeField]
+        private DeviceInput deviceInput;
 
         [SerializeField]
         private Transform playerTransform;
@@ -23,9 +25,6 @@ namespace Project.Input
         private Vector2 _prevMovePosition, _prevUpdateMovePosition;
 
         private SphericalCoordinate _sphericalCoordinate;
-        public Action InputEnded;
-        public Action<Vector2> InputMoved;
-        public Action InputStarted;
 
         #region Event Functions
 
@@ -60,16 +59,16 @@ namespace Project.Input
 
         private void OnEnable()
         {
-            InputStarted += OnInputStarted;
-            InputMoved += OnInputMoved;
-            InputEnded += OnInputEnded;
+            deviceInput.PositionPerformed += OnInputMoved;
+            deviceInput.PressPerformed += OnInputStarted;
+            deviceInput.PressCanceled += OnInputEnded;
         }
 
         private void OnDisable()
         {
-            InputStarted -= OnInputStarted;
-            InputMoved -= OnInputMoved;
-            InputEnded -= OnInputEnded;
+            deviceInput.PositionPerformed -= OnInputMoved;
+            deviceInput.PressPerformed -= OnInputStarted;
+            deviceInput.PressCanceled -= OnInputEnded;
         }
 
         #endregion
