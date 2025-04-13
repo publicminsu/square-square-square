@@ -1,9 +1,9 @@
 {
-    "name": "Project.UI",
+    "name": "Project.Cube",
     "rootNamespace": "",
     "references": [
-        "GUID:6055be8ebefd69e48b49212b09b47b2f",
-        "GUID:a09da1feac2f4c0b91256bbfac5caf50"
+        "GUID:83b1e9c7ea4e36140ba0fe2e5e3514db",
+        "GUID:bc6194887b33817459294c37554e132a"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

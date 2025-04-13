@@ -1,4 +1,4 @@
-using Project.Data;
+using Project.Score;
 using UnityEngine;
 
 namespace Project.Cube
@@ -8,7 +8,7 @@ namespace Project.Cube
         #region Serialized Fields
 
         [SerializeField]
-        private ScoreDataSO scoreData;
+        private ScoreData scoreData;
 
         #endregion
 

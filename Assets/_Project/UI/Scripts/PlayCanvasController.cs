@@ -1,7 +1,9 @@
 using System.Text;
-using Project.Data;
+using Project.GameTime;
+using Project.Score;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Project.UI
 {
@@ -10,10 +12,11 @@ namespace Project.UI
         #region Serialized Fields
 
         [SerializeField]
-        private ScoreDataSO scoreData;
+        private ScoreData scoreData;
 
+        [FormerlySerializedAs("timeData")]
         [SerializeField]
-        private TimeDataSO timeData;
+        private GameTimeData gameTimeData;
 
         [SerializeField]
         private TMP_Text scoreText, timeText;
@@ -27,13 +30,13 @@ namespace Project.UI
         private void OnEnable()
         {
             scoreData.ScoreUpdated += OnScoreUpdated;
-            timeData.TimeUpdated += OnTimeUpdated;
+            gameTimeData.TimeUpdated += OnGameTimeUpdated;
         }
 
         private void OnDisable()
         {
             scoreData.ScoreUpdated -= OnScoreUpdated;
-            timeData.TimeUpdated -= OnTimeUpdated;
+            gameTimeData.TimeUpdated -= OnGameTimeUpdated;
         }
 
         #endregion
@@ -46,7 +49,7 @@ namespace Project.UI
             scoreText.text = _stringBuilder.ToString();
         }
 
-        private void OnTimeUpdated(float currentTime)
+        private void OnGameTimeUpdated(float currentTime)
         {
             timeText.text = currentTime.ToString("F2");
         }

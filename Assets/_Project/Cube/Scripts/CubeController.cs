@@ -1,5 +1,6 @@
 using System.Collections;
-using Project.Data;
+using Project.GameTime;
+using Project.Score;
 using UnityEngine;
 
 namespace Project.Cube
@@ -15,14 +16,13 @@ namespace Project.Cube
         private Transform cubeGroupTransform;
 
         [SerializeField]
-        private ScoreDataSO scoreData;
-
-        [SerializeField]
-        private TimeDataSO timeData;
+        private ScoreData scoreData;
 
         #endregion
 
         private CubeObjectPool _cubeObjectPool;
+
+        private GameTimeData _gameTimeData;
 
         #region Event Functions
 
@@ -41,7 +41,7 @@ namespace Project.Cube
         public void StartGame()
         {
             scoreData.InitScore();
-            timeData.InitTime();
+            _gameTimeData.InitTime();
 
             StartCoroutine(UpdateGame());
         }
@@ -59,7 +59,7 @@ namespace Project.Cube
                     currentTime = 0f;
                 }
 
-                timeData.IncreaseTime();
+                _gameTimeData.IncreaseTime();
                 currentTime += Time.deltaTime;
                 yield return null;
             }
