@@ -18,11 +18,12 @@ namespace Project.Cube
         [SerializeField]
         private ScoreData scoreData;
 
+        [SerializeField]
+        private GameTimeData gameTimeData;
+
         #endregion
 
         private CubeObjectPool _cubeObjectPool;
-
-        private GameTimeData _gameTimeData;
 
         #region Event Functions
 
@@ -41,7 +42,7 @@ namespace Project.Cube
         public void StartGame()
         {
             scoreData.InitScore();
-            _gameTimeData.InitTime();
+            gameTimeData.InitTime();
 
             StartCoroutine(UpdateGame());
         }
@@ -59,7 +60,7 @@ namespace Project.Cube
                     currentTime = 0f;
                 }
 
-                _gameTimeData.IncreaseTime();
+                gameTimeData.IncreaseTime();
                 currentTime += Time.deltaTime;
                 yield return null;
             }

@@ -291,7 +291,7 @@ MonoBehaviour:
     type: 3}
   cubeGroupTransform: {fileID: 1734548526}
   scoreData: {fileID: 11400000, guid: 48a73e152cefe8e408e10de5e60c6ebb, type: 2}
-  timeData: {fileID: 11400000, guid: a99b98a106f041540abb48d6a7ae2016, type: 2}
+  gameTimeData: {fileID: 11400000, guid: a99b98a106f041540abb48d6a7ae2016, type: 2}
 --- !u!4 &343428544
 Transform:
   m_ObjectHideFlags: 0
@@ -382,7 +382,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreData: {fileID: 11400000, guid: 48a73e152cefe8e408e10de5e60c6ebb, type: 2}
-  timeData: {fileID: 11400000, guid: a99b98a106f041540abb48d6a7ae2016, type: 2}
+  gameTimeData: {fileID: 11400000, guid: a99b98a106f041540abb48d6a7ae2016, type: 2}
   scoreText: {fileID: 1956540515}
   timeText: {fileID: 97282219}
 --- !u!1 &569846580
