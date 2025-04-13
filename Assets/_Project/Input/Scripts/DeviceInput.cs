@@ -20,10 +20,13 @@ namespace Project.Input
             var playerActions = _playerInputActions.Player;
             playerActions.Enable();
 
-            playerActions.Position.performed += Position_Performed;
+            playerActions.Position.performed += OnPositionPerformed;
 
-            playerActions.Press.performed += Press_Performed;
-            playerActions.Press.canceled += Press_Canceled;
+            playerActions.Press.performed += OnPressPerformed;
+            playerActions.Press.canceled += OnPressCanceled;
+
+            playerActions.Move.performed += OnMovePerformed;
+            playerActions.Move.canceled += OnMoveCanceled;
         }
 
         private void OnDisable()
@@ -31,10 +34,13 @@ namespace Project.Input
             var playerActions = _playerInputActions.Player;
             playerActions.Disable();
 
-            playerActions.Position.performed -= Position_Performed;
+            playerActions.Position.performed -= OnPositionPerformed;
 
-            playerActions.Press.performed -= Press_Performed;
-            playerActions.Press.canceled -= Press_Canceled;
+            playerActions.Press.performed -= OnPressPerformed;
+            playerActions.Press.canceled -= OnPressCanceled;
+
+            playerActions.Move.performed -= OnMovePerformed;
+            playerActions.Move.canceled -= OnMoveCanceled;
         }
 
         #endregion
@@ -42,21 +48,33 @@ namespace Project.Input
         public event Action<Vector2> PositionPerformed;
         public event Action PressPerformed;
         public event Action PressCanceled;
+        public event Action<Vector2> MovePerformed;
+        public event Action MoveCanceled;
 
-        private void Position_Performed(InputAction.CallbackContext callbackContext)
+        private void OnPositionPerformed(InputAction.CallbackContext callbackContext)
         {
             var position = callbackContext.ReadValue<Vector2>();
             PositionPerformed?.Invoke(position);
         }
 
-        private void Press_Performed(InputAction.CallbackContext callbackContext)
+        private void OnPressPerformed(InputAction.CallbackContext callbackContext)
         {
             PressPerformed?.Invoke();
         }
 
-        private void Press_Canceled(InputAction.CallbackContext callbackContext)
+        private void OnPressCanceled(InputAction.CallbackContext callbackContext)
         {
             PressCanceled?.Invoke();
+        }
+
+        private void OnMovePerformed(InputAction.CallbackContext callbackContext)
+        {
+            MovePerformed?.Invoke(callbackContext.ReadValue<Vector2>());
+        }
+
+        private void OnMoveCanceled(InputAction.CallbackContext callbackContext)
+        {
+            MoveCanceled?.Invoke();
         }
     }
 }
