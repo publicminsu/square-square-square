@@ -29,7 +29,7 @@ namespace Project.Input
         private void OnDisable()
         {
             var playerActions = _playerInputActions.Player;
-            playerActions.Enable();
+            playerActions.Disable();
 
             playerActions.Position.performed -= Position_Performed;
 
