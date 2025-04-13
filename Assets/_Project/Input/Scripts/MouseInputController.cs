@@ -1,23 +1,16 @@
-using Project.Utility;
 using UnityEngine;
 
 namespace Project.Input
 {
     public class MouseInputController : MonoBehaviour
     {
-        public static SphericalCoordinate
-            SphericalCoordinate; //TODO : 키보드에서도 참조할 수 있게 임시적으로 static으로 만듬. 이후 플레이어의 이동을 관장하는 컴포넌트 제작 필요
-
         #region Serialized Fields
 
         [SerializeField]
         private DeviceInput deviceInput;
 
         [SerializeField]
-        private Transform playerTransform;
-
-        [SerializeField]
-        private Transform cubeGroupTransform;
+        private PlayerMover playerMover;
 
         #endregion
 
@@ -28,13 +21,6 @@ namespace Project.Input
 
         #region Event Functions
 
-        private void Start()
-        {
-            //초기 위치 설정
-            SphericalCoordinate = new SphericalCoordinate(10, -90, 90);
-            playerTransform.position = SphericalCoordinate.ToCartesianCoordinate();
-        }
-
         private void Update()
         {
             if (_nextDirection == Vector2.zero) // 방향이 정해지지 않은 경우
@@ -42,18 +28,9 @@ namespace Project.Input
                 return;
             }
 
-            SphericalCoordinate.AddDirectionDeg(_nextDirection * Time.deltaTime);
-            playerTransform.position = SphericalCoordinate.ToCartesianCoordinate();
+            playerMover.Move(_nextDirection);
 
             _nextDirection = Vector2.zero;
-        }
-
-        private void LateUpdate()
-        {
-            //큐브 그룹의 중심을 바라보기
-            var direction = cubeGroupTransform.position - playerTransform.position;
-            var lookQuaternion = Quaternion.LookRotation(direction.normalized);
-            playerTransform.rotation = lookQuaternion;
         }
 
         private void OnEnable()

@@ -1313,6 +1313,7 @@ GameObject:
   - component: {fileID: 2057448167}
   - component: {fileID: 2057448168}
   - component: {fileID: 2057448169}
+  - component: {fileID: 2057448170}
   m_Layer: 0
   m_Name: Input
   m_TagString: Untagged
@@ -1360,8 +1361,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deviceInput: {fileID: 2057448167}
-  playerTransform: {fileID: 2000939448}
-  cubeGroupTransform: {fileID: 1734548526}
+  playerMover: {fileID: 2057448170}
 --- !u!114 &2057448169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1376,6 +1376,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deviceInput: {fileID: 2057448167}
   playerTransform: {fileID: 2000939448}
+  playerMover: {fileID: 2057448170}
+--- !u!114 &2057448170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2057448164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d98a45988f13e5641aa73228f6857dc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTransform: {fileID: 2000939448}
+  cubeGroupTransform: {fileID: 1734548526}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

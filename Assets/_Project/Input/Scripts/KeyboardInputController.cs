@@ -10,7 +10,7 @@ namespace Project.Input
         private DeviceInput deviceInput;
 
         [SerializeField]
-        private Transform playerTransform;
+        private PlayerMover playerMover;
 
         #endregion
 
@@ -24,8 +24,7 @@ namespace Project.Input
         {
             if (_isKeyboardPress)
             {
-                MouseInputController.SphericalCoordinate.AddDirectionDeg(_nextDirection * Time.deltaTime);
-                playerTransform.position = MouseInputController.SphericalCoordinate.ToCartesianCoordinate();
+                playerMover.Move(_nextDirection);
             }
         }
 
@@ -53,5 +52,7 @@ namespace Project.Input
         {
             _isKeyboardPress = false;
         }
+
+        //TODO : 키보드 스페이스로 클릭을 구현
     }
 }
