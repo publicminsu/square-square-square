@@ -319,7 +319,7 @@ GameObject:
   - component: {fileID: 458039194}
   - component: {fileID: 458039195}
   m_Layer: 5
-  m_Name: PlayCanvas
+  m_Name: GameplayCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -381,6 +381,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae019824c48a3df48bd97056e9dc3f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvas: {fileID: 458039194}
   scoreData: {fileID: 11400000, guid: 48a73e152cefe8e408e10de5e60c6ebb, type: 2}
   gameTimeData: {fileID: 11400000, guid: a99b98a106f041540abb48d6a7ae2016, type: 2}
   scoreText: {fileID: 1956540515}
@@ -860,8 +861,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1155565393}
   - component: {fileID: 1155565394}
+  - component: {fileID: 1155565395}
   m_Layer: 5
-  m_Name: UICanvas
+  m_Name: MainMenuCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -909,6 +911,19 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1155565395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155565392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd4ba8c297534abbaebea56c024ffab6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 1155565394}
 --- !u!1 &1289186318
 GameObject:
   m_ObjectHideFlags: 0
@@ -1375,7 +1390,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deviceInput: {fileID: 2057448167}
-  playerTransform: {fileID: 2000939448}
   playerMover: {fileID: 2057448170}
 --- !u!114 &2057448170
 MonoBehaviour:

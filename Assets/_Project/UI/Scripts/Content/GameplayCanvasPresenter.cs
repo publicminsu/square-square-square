@@ -5,9 +5,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Project.UI
+namespace Project.UI.Content
 {
-    public class PlayCanvasController : MonoBehaviour
+    public class GameplayCanvasPresenter : CanvasPresenter
     {
         #region Serialized Fields
 
