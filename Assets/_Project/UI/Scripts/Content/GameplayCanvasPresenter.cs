@@ -1,4 +1,5 @@
 using System.Text;
+using _Project.GameSystem;
 using Project.GameTime;
 using Project.Score;
 using TMPro;
@@ -27,14 +28,23 @@ namespace Project.UI.Content
 
         protected override void OnRegister()
         {
+            GameManager.Instance.OnGameStart += ShowCanvas;
+
             scoreData.ScoreUpdated += OnScoreUpdated;
             gameTimeData.TimeUpdated += OnGameTimeUpdated;
         }
 
         protected override void OnUnregister()
         {
+            GameManager.Instance.OnGameStart -= ShowCanvas;
+
             scoreData.ScoreUpdated -= OnScoreUpdated;
             gameTimeData.TimeUpdated -= OnGameTimeUpdated;
+        }
+
+        private void ShowCanvas()
+        {
+            UIManager.Instance.ShowCanvas<GameplayCanvasPresenter>();
         }
 
         private void OnScoreUpdated(int currentScore)

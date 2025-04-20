@@ -1,17 +1,19 @@
 {
-    "name": "Project.Cube",
-    "rootNamespace": "",
-    "references": [
-        "GUID:83b1e9c7ea4e36140ba0fe2e5e3514db",
-        "GUID:bc6194887b33817459294c37554e132a"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "Project.Cube",
+  "rootNamespace": "",
+  "references": [
+    "GUID:83b1e9c7ea4e36140ba0fe2e5e3514db",
+    "GUID:bc6194887b33817459294c37554e132a",
+    "Project.GameSystem",
+    "GUID:c7e303e4cec44421926d23a06dbed1da"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
 }

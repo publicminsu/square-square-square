@@ -1,4 +1,5 @@
 using System.Collections;
+using _Project.GameSystem;
 using Project.GameTime;
 using Project.Score;
 using UnityEngine;
@@ -32,14 +33,19 @@ namespace Project.Cube
             _cubeObjectPool = new CubeObjectPool(cubeObjectPrefab, cubeGroupTransform);
         }
 
-        private void Start()
+        private void OnEnable()
         {
-            StartGame();
+            GameManager.Instance.OnGameStart += StartGame;
+        }
+
+        private void OnDisable()
+        {
+            GameManager.Instance.OnGameStart -= StartGame;
         }
 
         #endregion
 
-        public void StartGame()
+        private void StartGame()
         {
             scoreData.InitScore();
             gameTimeData.InitTime();
