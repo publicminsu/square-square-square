@@ -1,6 +1,6 @@
 namespace Project.UI.Content
 {
-    public class MainMenuCanvasPresenter : CanvasPresenter
+    public class MainMenuCanvasPresenter : CanvasPresenterBase<MainMenuCanvasPresenter>
     {
     }
 }

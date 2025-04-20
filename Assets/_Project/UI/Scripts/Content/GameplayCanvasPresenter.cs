@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 
 namespace Project.UI.Content
 {
-    public class GameplayCanvasPresenter : CanvasPresenter
+    public class GameplayCanvasPresenter : CanvasPresenterBase<GameplayCanvasPresenter>
     {
         #region Serialized Fields
 
@@ -25,21 +25,17 @@ namespace Project.UI.Content
 
         private readonly StringBuilder _stringBuilder = new();
 
-        #region Event Functions
-
-        private void OnEnable()
+        protected override void OnRegister()
         {
             scoreData.ScoreUpdated += OnScoreUpdated;
             gameTimeData.TimeUpdated += OnGameTimeUpdated;
         }
 
-        private void OnDisable()
+        protected override void OnUnregister()
         {
             scoreData.ScoreUpdated -= OnScoreUpdated;
             gameTimeData.TimeUpdated -= OnGameTimeUpdated;
         }
-
-        #endregion
 
         private void OnScoreUpdated(int currentScore)
         {
