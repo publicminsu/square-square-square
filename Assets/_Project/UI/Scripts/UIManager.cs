@@ -19,29 +19,20 @@ namespace Project.UI
 
         public void ShowMainMenuCanvas()
         {
-            HideCurrentCanvas();
-
-            _currentCanvasPresenter = mainMenuCanvasPresenter;
-
-            ShowCurrentCanvas();
+            ShowCanvasInternal(mainMenuCanvasPresenter);
         }
 
         public void ShowGameplayCanvas()
         {
-            HideCurrentCanvas();
-
-            _currentCanvasPresenter = gameplayCanvasPresenter;
-
-            ShowCurrentCanvas();
+            ShowCanvasInternal(gameplayCanvasPresenter);
         }
 
-        private void HideCurrentCanvas()
+        private void ShowCanvasInternal(CanvasPresenter targetCanvasPresenter)
         {
             _currentCanvasPresenter.Hide();
-        }
 
-        private void ShowCurrentCanvas()
-        {
+            _currentCanvasPresenter = targetCanvasPresenter;
+
             _currentCanvasPresenter.Show();
         }
     }
