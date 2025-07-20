@@ -40,7 +40,7 @@ namespace Project.Cube
             transform.rotation = lookQuaternion;
 
             //목표 방향으로 속도 설정
-            _cubeRigidbody.velocity = targetVector;
+            _cubeRigidbody.linearVelocity = targetVector;
         }
     }
 }
