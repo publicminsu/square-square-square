@@ -4,30 +4,16 @@ using UnityEngine.UI;
 
 namespace Project.UI.Content
 {
-    public class MainMenuCanvasPresenter : CanvasPresenterBase<MainMenuCanvasPresenter>
+    public class MainMenuCanvasPresenter : CanvasPresenterBase
     {
-        #region Serialized Fields
+        [SerializeField] private Button gameStartButton;
 
-        [SerializeField]
-        private Button gameStartButton;
-
-        #endregion
-
-        #region Event Functions
-
-        private void Start()
-        {
-            UIManager.Instance.ShowCanvas<MainMenuCanvasPresenter>();
-        }
-
-        #endregion
-
-        protected override void OnRegister()
+        private void OnEnable()
         {
             gameStartButton.onClick.AddListener(StartGame);
         }
 
-        protected override void OnUnregister()
+        private void OnDisable()
         {
             gameStartButton.onClick.RemoveListener(StartGame);
         }

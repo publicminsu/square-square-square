@@ -10,17 +10,13 @@ namespace Project.Cube
     {
         #region Serialized Fields
 
-        [SerializeField]
-        private GameObject cubeObjectPrefab;
+        [SerializeField] private GameObject cubeObjectPrefab;
 
-        [SerializeField]
-        private Transform cubeGroupTransform;
+        [SerializeField] private Transform cubeGroupTransform;
 
-        [SerializeField]
-        private ScoreData scoreData;
+        [SerializeField] private ScoreData scoreData;
 
-        [SerializeField]
-        private GameTimeData gameTimeData;
+        [SerializeField] private GameTimeData gameTimeData;
 
         #endregion
 
@@ -35,12 +31,12 @@ namespace Project.Cube
 
         private void OnEnable()
         {
-            GameManager.Instance.OnGameStart += StartGame;
+            GameManager.OnGameStart += StartGame;
         }
 
         private void OnDisable()
         {
-            GameManager.Instance.OnGameStart -= StartGame;
+            GameManager.OnGameStart -= StartGame;
         }
 
         #endregion

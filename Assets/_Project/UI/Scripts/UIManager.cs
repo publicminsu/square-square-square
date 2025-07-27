@@ -7,30 +7,44 @@ namespace Project.UI
 {
     public class UIManager : SingletonBase<UIManager>
     {
-        private readonly Dictionary<Type, CanvasPresenter> _canvasPresenters = new();
-
-        private CanvasPresenter _currentCanvasPresenter;
-
-        public void Register<T>(T presenter) where T : CanvasPresenter
+        [Serializable]
+        public class UICanvasConfig
         {
-            _canvasPresenters[typeof(T)] = presenter;
+            [field: SerializeField] public UICanvasType UICanvasType { get; private set; }
+
+            [field: SerializeField] public CanvasPresenterBase CanvasPresenterPrefab { get; private set; }
         }
 
-        public void Unregister<T>() where T : CanvasPresenter
-        {
-            _canvasPresenters.Remove(typeof(T));
-        }
+        [SerializeField] private Canvas rootCanvas;
 
-        public void ShowCanvas<T>() where T : CanvasPresenter
-        {
-            var type = typeof(T);
+        [SerializeField] private UICanvasType initialCanvasType;
 
-            if (_canvasPresenters.TryGetValue(type, out var targetCanvasPresenter))
+        [SerializeField] private List<UICanvasConfig> uiCanvasConfigs;
+
+        private readonly Dictionary<UICanvasType, CanvasPresenterBase> _canvasPresenters = new();
+
+        private CanvasPresenterBase _currentCanvasPresenter;
+
+        private void Start()
+        {
+            foreach (var config in uiCanvasConfigs)
             {
-                if (_currentCanvasPresenter)
-                {
-                    _currentCanvasPresenter.Hide();
-                }
+                var ui = Instantiate(config.CanvasPresenterPrefab, rootCanvas.transform);
+                _canvasPresenters.Add(config.UICanvasType, ui);
+
+                if (config.UICanvasType != initialCanvasType)
+                    ui.Hide();
+                else
+                    _currentCanvasPresenter = ui;
+            }
+        }
+
+
+        public void ShowCanvas(UICanvasType uiCanvasType)
+        {
+            if (_canvasPresenters.TryGetValue(uiCanvasType, out var targetCanvasPresenter))
+            {
+                if (_currentCanvasPresenter) _currentCanvasPresenter.Hide();
 
                 _currentCanvasPresenter = targetCanvasPresenter;
 
@@ -38,7 +52,8 @@ namespace Project.UI
             }
             else
             {
-                Debug.LogWarning($"[{nameof(UIManager)}] {type}을 사용하는 {nameof(CanvasPresenter)}를 찾을 수 업습니다.", this);
+                Debug.LogError($"[{nameof(UIManager)}] {uiCanvasType}을 사용하는 {nameof(CanvasPresenterBase)}를 찾을 수 업습니다.",
+                    this);
             }
         }
     }

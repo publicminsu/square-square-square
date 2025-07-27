@@ -8,35 +8,28 @@ using UnityEngine.Serialization;
 
 namespace Project.UI.Content
 {
-    public class GameplayCanvasPresenter : CanvasPresenterBase<GameplayCanvasPresenter>
+    public class GameplayCanvasPresenter : CanvasPresenterBase
     {
-        #region Serialized Fields
+        [SerializeField] private ScoreData scoreData;
 
-        [SerializeField]
-        private ScoreData scoreData;
-
-        [FormerlySerializedAs("timeData")]
-        [SerializeField]
+        [FormerlySerializedAs("timeData")] [SerializeField]
         private GameTimeData gameTimeData;
 
-        [SerializeField]
-        private TMP_Text scoreText, timeText;
-
-        #endregion
+        [SerializeField] private TMP_Text scoreText, timeText;
 
         private readonly StringBuilder _stringBuilder = new();
 
-        protected override void OnRegister()
+        private void OnEnable()
         {
-            GameManager.Instance.OnGameStart += ShowCanvas;
+            GameManager.OnGameStart += ShowCanvas;
 
             scoreData.ScoreUpdated += OnScoreUpdated;
             gameTimeData.TimeUpdated += OnGameTimeUpdated;
         }
 
-        protected override void OnUnregister()
+        private void OnDisable()
         {
-            GameManager.Instance.OnGameStart -= ShowCanvas;
+            GameManager.OnGameStart -= ShowCanvas;
 
             scoreData.ScoreUpdated -= OnScoreUpdated;
             gameTimeData.TimeUpdated -= OnGameTimeUpdated;
@@ -44,7 +37,7 @@ namespace Project.UI.Content
 
         private void ShowCanvas()
         {
-            UIManager.Instance.ShowCanvas<GameplayCanvasPresenter>();
+            UIManager.Instance.ShowCanvas(UICanvasType.Gameplay);
         }
 
         private void OnScoreUpdated(int currentScore)
